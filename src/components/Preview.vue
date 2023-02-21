@@ -1,20 +1,32 @@
 <script setup lang="ts">
 import html2Canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import Base from '@/template/Base.vue';
+import { findLastChild } from '@/utils'
 
-const cvs: any = [];
-onMounted(() => {
-  const temp = document.querySelector("#temp") as HTMLElement;
+const a4Width = $ref(595.28); // a4纸的宽度 单位pt
+const a4Height = $ref(841.89); //  a4纸的高度 单位pt
+const cvs: HTMLCanvasElement[] = [];
 
-  const page = Math.ceil(temp.scrollHeight / 746);
+onMounted(async () => {
+  const temp = document.querySelector("#temp-page") as HTMLElement;
+
+  const page = Math.ceil(temp.scrollHeight / a4Height);
+  let lastY = 0;
   for (let i = 0 ; i < page ; i ++) {
-    html2Canvas(temp, {
+    const el = findLastChild(document.querySelector('#temp') as HTMLElement, a4Height * (i + 1));
+    const y = el.offsetTop;
+    
+    const canvas = await html2Canvas(temp, {
       scale: 2,
-      y: i * 746
-    }).then(canvas => {
-      cvs.push(canvas);
-      (document.querySelector('#pages') as HTMLElement).appendChild(canvas)
+      y: lastY,
+      width: a4Width,
+      height: i === page - 1 ? a4Height : y - lastY,
     });
+    
+    lastY = y;
+    cvs.push(canvas);
+    (document.querySelector('#pages') as HTMLElement).appendChild(canvas);
   }
 });
 
@@ -23,66 +35,20 @@ const handleDownload = () => {
     unit: 'pt', // 单位用pt
     format: 'a4',
   });
-  const page1 = cvs[0].toDataURL('image/jpeg', 1.0);
-  const page2 = cvs[1].toDataURL('image/jpeg', 1.0);
-  const a4_width = 595.28; // a4纸的宽度 单位pt
-  const a4_height = 841.89; //  a4纸的高度 单位pt
-
-  doc.addImage(page1, 'jpeg', 0, 0, a4_width, a4_height);
-  doc.addPage();
-  doc.addImage(page2, 'jpeg', 0, 0, a4_width, a4_height);
+  for (let i = 0 ; i < cvs.length ; i ++) {
+    const page = cvs[i].toDataURL('image/jpeg', 1.0);
+    doc.addImage(page, 'jpeg', 0, 0, a4Width, a4Height);
+    i < cvs.length - 1 && doc.addPage();
+  }
   doc.save();
 }
 </script>
 
 <template>
+  <button @click="handleDownload">download</button>
   <div class="preview">
-    <button @click="handleDownload">download</button>
-    <div id="temp" class="temp">
-      <h3>杨祥</h3>
-      <div class="section">
-        <span>男</span>
-        <span>|</span>
-        <span>年龄：26岁</span>
-        <span>|</span>
-        <span>13678398293</span>
-        <span>|</span>
-        <span>1215627787@qq.com</span>
-        <span>四年工作经验</span>
-        <span>|</span>
-        <span>求职意向：前端开发</span>
-        <span>|</span>
-        <span>期望城市：成都</span>
-      </div>
-      <div class="content">
-        <h4>个人优势</h4>
-        <div class="list">
-          <p>1. 三年web开发经验撒大丰收</p>
-          <p>1. 三年web开发经验撒大丰收</p>
-          <p>1. 三年web开发经验撒大丰收</p>
-          <p>1. 三年web开发经验撒大丰收</p>
-          <p>1. 三年web开发经验撒大丰收</p>
-        </div>
-      </div>
-      <div class="content">
-        <h4>工作经历</h4>
-        <div class="content-item" v-for="(item, idx) in 4" :key="idx">
-          <div class="title">
-            <div class="left">
-              <p class="name">叭叭成都科技有限公司</p>
-              <p class="job">前端开发</p>
-            </div>
-            <span class="date">2021.08-2023.21</span>
-          </div>
-          <div class="list">
-            <p>1. 三年web开发经验撒大丰收</p>
-            <p>1. 三年web开发经验撒大丰收</p>
-            <p>1. 三年web开发经验撒大丰收</p>
-            <p>1. 三年web开发经验撒大丰收</p>
-            <p>1. 三年web开发经验撒大丰收</p>
-          </div>
-        </div>
-      </div>
+    <div id="temp-page" class="temp-page">
+      <Base />
     </div>
     <div id="pages" class="pages"></div>
   </div>
@@ -94,76 +60,31 @@ const handleDownload = () => {
   overflow-x: hidden;
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 0;
+    width: 3px;
+    background-color: #eee;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
   }
   .pages {
     display: flex;
     flex-direction: column;
+    &:deep(canvas) {
+      margin: 0 0 .5rem 0;
+    }
   }
-  .temp {
-    width: 527px;
-    height: 746px;
-    background-color: #fff;
+  .temp-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
-    z-index: -1;
-    h3 {
-      text-align: center;
-      padding: 1rem 0;
-    }
-    .section {
-      color: #333;
-      font-size: 14px;
-      max-width: 390px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      span {
-        margin: 0 2px;
-        line-height: 1.5rem;
-      }
-    }
-    .content {
-      width: 100%;
-      padding: 1rem;
-      h4 {
-        color: #333;
-        border-bottom: 2px solid #eee;
-        padding-bottom: .5rem;
-      }
-      .title {
-        display: flex;
-        padding: .5rem 0;
-        justify-content: space-between;
-        align-items: center;
-        .left {
-          display: flex;
-          align-items: center;
-          .name {
-            font-weight: bold;
-          }
-          .job {
-            color: #333;
-            margin-left: 2rem;
-          }
-        }
-        .date {
-          color: #666;
-          font-size: 15px;
-        }
-      }
-      .list {
-        padding: .5rem;
-        p {
-          color: #333;
-          font-size: 14px;
-          line-height: 1.5;
-          letter-spacing: .1rem;
-        }
-      }
-    }
+    overflow-y: auto;
+    background-color: #fff;
+    left: -100%;
+    top: 0;
+    left: -10000%;
+    top: -10000%;
+    background-color: #fff;
   }
 }
 </style>
