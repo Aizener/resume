@@ -1,95 +1,135 @@
 <script setup lang="ts">
-
+import IconPhone from '~icons/material-symbols/perm-phone-msg-sharp';
+import IconEmail from '~icons/material-symbols/attach-email';
 </script>
 
 <template>
   <div class="base">
     <Temp>
-      <template #info>
-        <h2>杨祥</h2>
+      <template #info="{ data }">
+        <h2>{{ data.name }}</h2>
         <div class="info-list">
-          <span>男</span>
-          <span>|</span>
-          <span>年龄：26岁</span>
-          <span>|</span>
-          <span>电话：13678398293</span>
-          <span>|</span>
-          <span>Email：13678398293</span>
-        </div>
-        <div class="info-list">
-          <span>3年工作经验</span>
-          <span>|</span>
-          <span>求职意向：Web前端</span>
-          <span>|</span>
-          <span>期望城市：成都</span>
-        </div>
-      </template>
-      <template #advantage>
-        <h1>个人优势</h1>
-        <ol>
-          <li>1.负责制手动缩放是手动阀是的发生的,负责制手动缩放是手动阀是的发生的；</li>
-          <li>2.负责制手动缩放是手动阀是的发生的；</li>
-          <li>3.负责制手动缩放是手动阀是的发生的；</li>
-          <li>4.负责制手动缩放是手动阀是的发生的；</li>
-          <li>5.负责制手动缩放是手动阀是的发生的；</li>
-        </ol>
-      </template>
-      <template #work>
-        <h1>工作经历</h1>
-        <div class="work" v-for="(item, idx) in 4">
-          <div class="title">
-            <div>
-              <p class="maintitle">叭叭成都科技有限公司</p>
-              <p class="subtitle">Web前端开发工程师</p>
-            </div>
-            <span class="date">2021.08~2022.09</span>
+          <div>
+            <span>性别：{{ data.sex }}</span>
+            <span>|</span>
           </div>
-          <ol>
-            <li>1.负责制手动缩放是手动阀是的发生的,负责制手动缩放是手动阀是的发生的；</li>
-            <li>2.负责制手动缩放是手动阀是的发生的；</li>
-            <li>3.负责制手动缩放是手动阀是的发生的；</li>
-            <li>4.负责制手动缩放是手动阀是的发生的；</li>
-            <li>5.负责制手动缩放是手动阀是的发生的；</li>
-          </ol>
+          <div>
+            <span>年龄：{{ data.age }}岁</span>
+            <span>|</span>
+          </div>
+          <div>
+            <IconPhone class="icon" />
+            <span>{{ data.phone }}</span>
+            <span>|</span>
+          </div>
+          <div>
+            <IconEmail class="icon" />
+            <span>{{ data.email }}</span>
+          </div>
+        </div>
+        <div class="info-list">
+          <div v-if="data.workTime">
+            <span>{{ data.workTime }}年工作经验</span>
+            <span>|</span>
+          </div>
+          <div v-if="data.job">
+            <span>求职意向：{{ data.job }}</span>
+            <span>|</span>
+          </div>
+          <div v-if="data.city">
+            <span>期望城市：{{ data.city }}</span>
+            <span>|</span>
+          </div>
+          <div v-if="data.origin">
+            <span>籍贯：{{ data.origin }}</span>
+            <span>|</span>
+          </div>
+          <div v-if="data.money">
+            <span>期望薪资：{{ data.money }}</span>
+          </div>
         </div>
       </template>
-      <template #project>
-        <h1>项目经历</h1>
-        <div class="work" v-for="(item, idx) in 4">
+      <template #advantage="{ data }">
+        <h1>个人优势</h1>
+        <ul>
+          <li
+            v-for="(item, idx) in data.contentArr"
+            :key="idx"
+          >{{ item }}</li>
+        </ul>
+      </template>
+      <template #work="{ data }">
+        <h1>工作经历</h1>
+        <div
+          class="work"
+          v-for="(item, idx) in data.works"
+          :key="idx"
+        >
           <div class="title">
             <div>
-              <p class="maintitle">叭叭成都科技有限公司</p>
-              <p class="subtitle">Web前端开发工程师</p>
+              <p class="maintitle">{{ item.name }}</p>
+              <p class="subtitle">{{ item.job }}</p>
             </div>
-            <span class="date">2021.08~2022.09</span>
+            <span class="date">{{ item.workTime }}</span>
+          </div>
+          <ul>
+            <li
+              v-for="(_item, idx) in item.contentArr"
+              :key="idx"
+            >{{ _item }}</li>
+          </ul>
+        </div>
+      </template>
+      <template #project="{ data }">
+        <h1>项目经历</h1>
+        <div
+          class="work"
+          v-for="(item, idx) in data.projects"
+          :key="idx"
+        >
+          <div class="title">
+            <div>
+              <p class="maintitle">{{ item.name }}</p>
+              <p class="subtitle">{{ item.role }}</p>
+            </div>
+            <span class="date">{{ item.projectTime }}</span>
           </div>
           <div class="content">
-            阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所
-            阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所阿斯达四大所
+            <p v-for="(_item, _idx) in item.descArr" :key="_idx">{{ _item }}</p>
           </div>
         </div>
       </template>
-      <template #education>
+      <template #education="{ data }">
         <h1>教育经历</h1>
-        <div class="school">
-          <div class="school-left">
-            <p class="name">四川信息职业技术学院</p>
-            <p class="grade">大专</p>
-            <p class="type">软件技术</p>
+        <div
+          class="school"
+          v-for="(item, idx) in data.educations"
+          :key="idx"
+        >
+          <div class="school-top">
+            <div class="school-left">
+              <p class="name">{{ item.name }}</p>
+              <p class="grade">{{ item.grade }}</p>
+              <p class="type">{{ item.role }}</p>
+            </div>
+            <span class="school-date">{{ item.educationTime }}</span>
           </div>
-          <span class="school-date">2015-2018</span>
+          <div class="school-content">
+            <p v-for="(_item, _idx) in item.contentArr" :key="_idx">{{ _item }}</p>
+          </div>
         </div>
       </template>
-      <template #like>
+      <template #like="{ data }">
         <h1>个人兴趣</h1>
-        <div class="like">
-          喜欢看电影，旅游，下象棋
-        </div>
+        <div class="like" v-html="data.content"></div>
       </template>
-      <template #link>
+      <template #link="{ data }">
         <h1>个人链接</h1>
         <div class="link">
-          <p>http://yangxiang.com</p>
+          <p
+            v-for="(item, idx) in data.contentArr"
+            :key="idx"
+          >{{ item }}</p>
         </div>
       </template>
     </Temp>
@@ -97,7 +137,7 @@
 </template>
 
 <style lang="scss" scoped>
-ol, li {
+ul, li {
   list-style: none;
 }
 .temp {
@@ -113,7 +153,15 @@ ol, li {
     margin-bottom: .5rem;
   }
   .info-list {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .icon {
+      color: gray;
+      font-size: 14px;
+      transform: translateY(2px);
+    }
     span {
       font-size: 14px;
       margin: 0 3px;
@@ -126,7 +174,7 @@ ol, li {
     padding-bottom: .5rem;
     border-bottom: 2px solid #ccc;
   }
-  ol {
+  ul {
     margin: 1rem 0;
     li {
       letter-spacing: 2px;
@@ -159,10 +207,16 @@ ol, li {
   }
 
   .school {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin: 1rem 0;
+    &-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &-content {
+      margin-top: .5rem;
+      letter-spacing: 2px;
+    }
     &-left {
       display: flex;
       align-items: center;

@@ -1,29 +1,40 @@
 <script setup lang="ts">
+import { useMainStore } from '@/store/main';
+const mainStore = useMainStore();
 
+const {
+  baseInfo,
+  advantage,
+  work,
+  project,
+  education,
+  like,
+  link
+} = mainStore;
 </script>
 
 <template>
   <div id="temp" class="temp">
     <div class="row temp-info">
-      <slot name="info"></slot>
+      <slot name="info" :data="baseInfo"></slot>
     </div>
     <div class="row temp-advantage">
-      <slot name="advantage"></slot>
+      <slot name="advantage" :data="advantage"></slot>
     </div>
     <div class="row temp-work">
-      <slot name="work"></slot>
+      <slot name="work" :data="work"></slot>
     </div>
     <div class="row temp-project">
-      <slot name="project"></slot>
+      <slot name="project" :data="project"></slot>
     </div>
     <div class="row temp-education">
-      <slot name="education"></slot>
+      <slot name="education" :data="education"></slot>
     </div>
     <div class="row temp-like">
-      <slot name="like"></slot>
+      <slot name="like" :data="like"></slot>
     </div>
     <div class="row temp-link">
-      <slot name="link"></slot>
+      <slot name="link" :data="link"></slot>
     </div>
   </div>
 </template>
