@@ -15,6 +15,7 @@ const {
 
 <template>
   <div id="temp" class="temp">
+    <slot></slot>
     <div class="row temp-info">
       <slot name="info" :data="baseInfo"></slot>
     </div>
@@ -44,8 +45,10 @@ const {
   width: 595px;
   padding: 1rem;
   display: flex;
+  overflow-x: hidden;
   flex-direction: column;
   box-shadow: 0 0 5px #ccc;
+  font-family: "微软雅黑";
   & > div {
     width: 100%;
   }

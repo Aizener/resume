@@ -1,10 +1,11 @@
 import html2Canvas from 'html2canvas';
 import { useDebounceFn, useFindLastChildFn } from '@/utils/hooks';
+import { jsPDF } from 'jspdf';
 
-export let cvsArr: HTMLCanvasElement[] = $ref([]);
+export let cvsArr = $ref<HTMLCanvasElement[]>([]);
 export const a4Width = $ref(595.28); // a4纸的宽度 单位pt
 export const a4Height = $ref(841.89); //  a4纸的高度 单位pt
-const render = async () => {
+export const render = async () => {
   const temp = document.querySelector("#temp-page") as HTMLElement;
   const container = (document.querySelector('#pages') as HTMLElement);
   container.innerHTML = '';
@@ -28,6 +29,19 @@ const render = async () => {
     cvsArr.push(canvas);
     container.appendChild(canvas);
   }
+}
+
+export const save = () => {
+  const doc = new jsPDF({
+    unit: 'pt', // 单位用pt
+    format: 'a4',
+  });
+  for (let i = 0 ; i < cvsArr.length ; i ++) {
+    const page = cvsArr[i].toDataURL('image/jpeg', 1.0);
+    doc.addImage(page, 'jpeg', 0, 0, a4Width, a4Height);
+    i < cvsArr.length - 1 && doc.addPage();
+  }
+  doc.save();
 }
 
 export const doRender = useDebounceFn(render, 3e3);

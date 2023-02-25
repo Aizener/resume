@@ -130,3 +130,13 @@ interface ILink {
   content: string,
   contentArr: string[]
 }
+
+/**
+ * 模板
+ */
+interface ITemp {
+  /** 名称 */
+  name: string,
+  /** 组件 */
+  comp: () => Component
+}

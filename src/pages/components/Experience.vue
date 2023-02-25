@@ -93,7 +93,7 @@ const handleChangeEditor = () => {
       <el-form-item :label="roleLabel">
         <el-input placeholder="请输入内容" v-model="model[roleKey]"></el-input>
       </el-form-item>
-      <el-form-item label="学历">
+      <el-form-item label="学历" v-if="type === 'education'">
         <el-select
           placeholder="请选择学历"
           v-model="model[typeKey]"

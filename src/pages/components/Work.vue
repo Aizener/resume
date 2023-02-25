@@ -3,7 +3,6 @@ import AddIcon from '~icons/material-symbols/add-circle';
 import { useMainStore } from '@/store/main';
 import Experience from './Experience.vue';
 import { ElMessageBox } from 'element-plus';
-import 'element-plus/es/components/message-box/style/css';
 
 const mainStore = useMainStore();
 const { work } = mainStore;

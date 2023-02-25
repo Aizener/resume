@@ -6,10 +6,13 @@ import Project from './components/Project.vue';
 import Education from './components/Education.vue';
 import Like from './components/Like.vue';
 import Link from './components/Link.vue';
+import Header from '@/components/Header.vue';
+import RightBar from '@/components/RightBar.vue';
 </script>
 
 <template>
   <div class="design">
+    <Header></Header>
     <div class="design-left">
       <BaseInfo></BaseInfo>
       <Advantage></Advantage>
@@ -23,6 +26,7 @@ import Link from './components/Link.vue';
       <Preview></Preview>
     </div>
   </div>
+  <RightBar></RightBar>
 </template>
 
 <style lang="scss" scoped>
@@ -55,7 +59,7 @@ import Link from './components/Link.vue';
     position: fixed;
     top: 0;
     right: 0;
-    padding: 3rem;
+    padding: 5rem 3rem 3rem 3rem;
     background-color: #f2f5fa;
   }
 }

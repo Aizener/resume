@@ -4,14 +4,14 @@ let showPageTimer: NodeJS.Timeout | null = null;
 
 export let currPage = $ref<number>(1);
 export let isShowPage = $ref<boolean>(false);
-export const doScroll = (cvsArr: HTMLCanvasElement[]) => {
+export const doScroll = (cvsArr: Ref<HTMLCanvasElement[]>) => {
   return useThrottleFn((e: Event) => {
     isShowPage = true;
     showPageTimer && clearTimeout(showPageTimer);
     const scrollTop = (e.target as HTMLElement).scrollTop;
-    for (let i = 0 ; i < cvsArr.length ; i ++) {
-      const { offsetTop: top, offsetHeight: height } = cvsArr[i];
-      if (scrollTop >= top && scrollTop <= top + height) {
+    for (let i = 0 ; i < cvsArr.value.length ; i ++) {
+      const { offsetTop: top, offsetHeight: height } = cvsArr.value[i];
+      if (scrollTop >= top && scrollTop <= top + height / 2) {
         currPage = i + 1;
       }
     }

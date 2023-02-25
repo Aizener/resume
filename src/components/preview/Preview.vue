@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { jsPDF } from 'jspdf';
 import Base from '@/template/Base.vue';
-import { useMainStore } from '@/store/main';
-import { doRender, a4Width, a4Height, cvsArr } from './render';
+import { useMainStore, useCompStore } from '@/store/main';
+import { doRender, cvsArr } from './render';
 import { doScroll, currPage, isShowPage } from './scroll';
 
-
 const mainStore = useMainStore();
+const compStore = useCompStore();
+
 watch(mainStore, () => {
   doRender();
 });
@@ -15,28 +15,16 @@ onMounted(async () => {
   doRender();
 });
 
-const handleDownload = () => {
-  const doc = new jsPDF({
-    unit: 'pt', // 单位用pt
-    format: 'a4',
-  });
-  for (let i = 0 ; i < cvsArr.length ; i ++) {
-    const page = cvsArr[i].toDataURL('image/jpeg', 1.0);
-    doc.addImage(page, 'jpeg', 0, 0, a4Width, a4Height);
-    i < cvsArr.length - 1 && doc.addPage();
-  }
-  doc.save();
-}
-
+const _doScroll = doScroll($$(cvsArr));
 const handleScroll = (e: Event) => {
-  doScroll(cvsArr)(e);
+  _doScroll(e);
 };
 </script>
 
 <template>
   <div class="preview" @scroll="handleScroll">
     <div id="temp-page" class="temp-page">
-      <component :is="Base"></component>
+      <component :is="compStore.currentTemplate"></component>
     </div>
     <div id="pages" class="pages"></div>
     <Transition>

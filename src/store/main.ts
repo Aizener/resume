@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import Base from '@/template/Base.vue';
 
 export const useMainStore = defineStore('mainStore', {
   state: () => {
@@ -64,3 +65,14 @@ export const useMainStore = defineStore('mainStore', {
     }
   }
 });
+
+export const useCompStore = defineStore('compStore', {
+  state: () => {
+    const isShowRightBar = $ref(false);
+    const currentTemplate = shallowRef<Component>(Base);
+    return {
+      isShowRightBar,
+      currentTemplate
+    }
+  }
+})
