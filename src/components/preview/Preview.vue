@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Base from '@/template/Base.vue';
 import { useMainStore, useCompStore } from '@/store/main';
 import { doRender, cvsArr } from './render';
 import { doScroll, currPage, isShowPage } from './scroll';
@@ -68,6 +67,8 @@ const handleScroll = (e: Event) => {
     position: relative;
     &:deep(canvas) {
       margin: 0 0 .5rem 0;
+      padding: 1rem 0;
+      background-color: #fff;
     }
   }
   .temp-page {

@@ -63,7 +63,8 @@ export const useMainStore = defineStore('mainStore', {
       like,
       link
     }
-  }
+  },
+  persist: true
 });
 
 export const useCompStore = defineStore('compStore', {
