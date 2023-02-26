@@ -66,6 +66,9 @@ const handleScroll = (e: Event) => {
     flex-direction: column;
     position: relative;
     &:deep(canvas) {
+      &:first-child {
+        padding-top: 0;
+      }
       margin: 0 0 .5rem 0;
       padding: 1rem 0;
       background-color: #fff;

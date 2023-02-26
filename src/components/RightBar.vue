@@ -15,7 +15,7 @@ let temps = $ref<ITemp[]>();
 temps = Object.keys(tempComp).map(path => {
   const strs = path.split('/');
   const name = strs[strs.length - 1].split('.')[0];
-  return { name, comp: tempComp[path] }
+  return { name, cover: `src/assets/imgs/temp/${name.toLocaleLowerCase()}.jpeg`, comp: tempComp[path] }
 });
 
 const handleChooseTemp = async (temp: ITemp) => {
@@ -28,6 +28,7 @@ const handleChooseTemp = async (temp: ITemp) => {
   compStore.currentTemplate = comp.default;
   await nextTick();
   render();
+  compStore.isShowRightBar = false;
 }
 </script>
 
@@ -45,8 +46,9 @@ const handleChooseTemp = async (temp: ITemp) => {
           class="temp"
           v-for="(item, idx) in temps"
           :key="idx"
+          :style="{ background: `url(${item.cover})`, backgroundSize: '100% 100%' }"
           @click="handleChooseTemp(item)"
-        >{{ item.name }}</div>
+        ></div>
       </div>
     </el-drawer>
   </div>
@@ -78,7 +80,7 @@ const handleChooseTemp = async (temp: ITemp) => {
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .2);
+      background-color: rgba(0, 0, 0, .5);
       display: flex;
       justify-content: center;
       align-items: center;

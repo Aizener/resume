@@ -76,4 +76,4 @@ export const useCompStore = defineStore('compStore', {
       currentTemplate
     }
   }
-})
+});

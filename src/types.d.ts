@@ -137,6 +137,8 @@ interface ILink {
 interface ITemp {
   /** 名称 */
   name: string,
+  /** 预览图 */
+  cover: string,
   /** 组件 */
   comp: () => Component
 }

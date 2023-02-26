@@ -132,7 +132,7 @@ import IconEmail from '~icons/material-symbols/attach-email';
           .icon {
             color: #999;
             margin-right: 2px;
-            transform: translateY(3px);
+            transform: translateY(2px);
           }
         }
       }
