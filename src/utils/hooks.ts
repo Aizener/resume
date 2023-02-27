@@ -56,3 +56,11 @@ export const useDebounceFn = (callback: Function, delay: number) => {
     }, delay);
   }
 }
+
+
+/**
+ * 对象克隆
+ * @param obj 源对象 
+ * @returns 新对象
+ */
+export const clone = (obj: Object) => JSON.parse(JSON.stringify(obj));

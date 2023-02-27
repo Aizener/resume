@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AddIcon from '~icons/material-symbols/add-circle';
-import { useMainStore } from '@/store/main';
+import { useMainStore, usePersonalStore } from '@/store/main';
 import Experience from './Experience.vue';
 import { ElMessageBox } from 'element-plus';
 import 'element-plus/es/components/message-box/style/css';

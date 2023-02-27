@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import { useCompStore, useMainStore } from '@/store/main';
+
+const router = useRouter();
+const mainStore = useMainStore();
+const compStore = useCompStore();
 const types = $ref([
   { title: '全部', value: '全部' },
   { title: '纯色', value: '纯色' },
   { title: '简约', value: '简约' },
 ]);
 const type = $ref('全部');
-const goods = [
-  { name: '基础模板', type: '纯色', comp: () => import('@/template/Base.vue'), cover: new URL('../assets/imgs/temp/base.jpeg', import.meta.url).href },
-  { name: '绿色简约', type: '简约', comp: () => import('@/template/Brief.vue'), cover: new URL('../assets/imgs/temp/brief.jpeg', import.meta.url).href },
+const goods: ITempType[] = [
+  { title: '基础模板', name: 'base', type: '纯色', comp: () => import('@/template/Base.vue'), cover: new URL('../assets/imgs/temp/base.jpeg', import.meta.url).href },
+  { title: '绿色简约', name: 'brief', type: '简约', comp: () => import('@/template/Brief.vue'), cover: new URL('../assets/imgs/temp/brief.jpeg', import.meta.url).href },
 ];
 
 const list = computed(() => {
@@ -16,6 +21,14 @@ const list = computed(() => {
   }
   return goods.filter(item => item.type === type);
 });
+
+const handleDesign = async (item: ITempType) => {
+  mainStore.initData();
+  compStore.currentTempType = item.name;
+  const temp: any = await item.comp();
+  compStore.currentTemplate = temp.default;
+  router.push('/design');
+}
 </script>
 
 <template>
@@ -49,7 +62,7 @@ const list = computed(() => {
       >
         <img class="cover" :src="item.cover" alt="">
         <div class="inner">
-          <el-button type="primary">开始制作</el-button>
+          <el-button type="primary" @click="handleDesign(item)">开始制作</el-button>
         </div>
         <div class="name">{{ item.name }}</div>
       </div>

@@ -26,6 +26,7 @@ const handleChooseTemp = async (temp: ITemp) => {
   const comp: any = await temp.comp();
   loadingInstance.close();
   compStore.currentTemplate = comp.default;
+  compStore.currentTempType = temp.name;
   await nextTick();
   render();
   compStore.isShowRightBar = false;

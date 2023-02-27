@@ -27,9 +27,11 @@ onMounted(() => {
       </div>
     </header>
     <div class="container">
-      <Transition>
-        <router-view />
-      </Transition>
+      <router-view v-slot="{ Component }">
+        <transition>
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
@@ -86,16 +88,17 @@ onMounted(() => {
 
 .v-enter-from, .v-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  transform: scaleX(80%);
 }
 .v-enter-to, .v-leave-from {
   opacity: 1;
 }
 
-.v-enter-active, .v-leave-active {
+.v-enter-active {
   transition: all .5s;
 }
-.v-enter-active {
-  // transition-delay: .5s;
+.v-leave-active {
+  opacity: 0;
+  position: absolute !important;
 }
 </style>

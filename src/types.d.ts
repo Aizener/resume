@@ -142,3 +142,27 @@ interface ITemp {
   /** 组件 */
   comp: () => Component
 }
+
+/**
+ * 表单的字段
+ */
+interface IForm {
+  advantage: any,
+  baseInfo: any,
+  education: any,
+  like: any,
+  link: any,
+  project: any,
+  work: any,
+}
+
+/**
+ * 模板
+ */
+type ITempType = {
+  title: string,
+  name: string,
+  type: string,
+  cover: string
+  comp: () => Component,
+}

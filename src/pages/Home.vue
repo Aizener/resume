@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { useCompStore, useMainStore } from '@/store/main';
 import GithubIcon from '~icons/ion/logo-github';
-import CanvasNest from 'canvas-nest.js';
+import Base from '@/template/Base.vue';
 
 const router = useRouter();
+const mainStore = useMainStore();
+const compStore = useCompStore();
 
 const handleBeginDesign = () => {
+  mainStore.initData();
+  compStore.currentTempType = 'base';
+  compStore.currentTemplate = Base;
+
   router.push('/design');
 }
 </script>

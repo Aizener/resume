@@ -1,8 +1,26 @@
 <script setup lang="ts">
 import ListIcon from '~icons/material-symbols/list-alt-rounded';
 import MenuIcon from '~icons/gg/menu-grid-r';
+import { useMainStore, usePersonalStore } from '@/store/main';
 
 const showType = $ref('box');
+const personalStore = usePersonalStore();
+const mainStore = useMainStore();
+const router = useRouter();
+const getDate = (time: number) => {
+  const d = new Date(time);
+  return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+}
+
+const handleEdit = (item: any) => {
+  mainStore.updateValue(item.data);
+  router.push({
+    path: '/design',
+    query: {
+      name: item.name
+    }
+  });
+}
 </script>
 
 <template>
@@ -27,13 +45,13 @@ const showType = $ref('box');
       </div>
     </div>
     <div class="my-list" :class="[showType]">
-      <div class="item" v-for="(item, idx) in 10" :key="idx">
-        <img class="cover" src="../assets/imgs/temp/base.jpeg" alt="">
+      <div class="item" v-for="(item, idx) in personalStore.myTemps" :key="idx">
+        <img class="cover" :src="item.cover" alt="">
         <div class="info">
-          <p class="title">简历名称</p>
+          <p class="title">{{ item.name }}</p>
           <div>
-            <span class="date">2023-02-27</span>
-            <el-button type="success">制作</el-button>
+            <span class="date">{{ getDate(item.time) }}</span>
+            <el-button type="success" @click="handleEdit(item)">编辑</el-button>
           </div>
         </div>
       </div>
@@ -128,7 +146,7 @@ const showType = $ref('box');
           box-shadow: 0 0 5px #ccc;
         }
         .cover {
-          width: 200px;
+          width: 215px;
           height: 250px;
         }
         .info {
