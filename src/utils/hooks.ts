@@ -25,13 +25,9 @@ export const useFindLastChildFn = (el: HTMLElement, h: number): HTMLElement => {
  * @param delay 间隔
  * @returns 
  */
-export const useThrottleFn = (callback: Function, delay: number, immediate = true) => {
-  let timer: NodeJS.Timeout | null = null, isImmediateRun = false;
+export const useThrottleFn = (callback: Function, delay: number) => {
+  let timer: NodeJS.Timeout | null = null;
   return function (this: unknown, ...args: any) {
-    if (immediate && !isImmediateRun) {
-      callback.apply(this, args);
-      isImmediateRun = true;
-    }
     if (timer) {
       return;
     }
@@ -48,13 +44,9 @@ export const useThrottleFn = (callback: Function, delay: number, immediate = tru
  * @param delay 间隔
  * @returns 
  */
-export const useDebounceFn = (callback: Function, delay: number, immediate = true) => {
-  let timer: NodeJS.Timeout | null = null, isImmediateRun = false;
+export const useDebounceFn = (callback: Function, delay: number) => {
+  let timer: NodeJS.Timeout | null = null;
   return function (this: unknown, ...args: any) {
-    if (immediate && !isImmediateRun) {
-      callback.apply(this, args);
-      isImmediateRun = true;
-    }
     if (timer) {
       clearTimeout(timer);
     }

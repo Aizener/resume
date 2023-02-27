@@ -6,7 +6,7 @@ import Project from './components/Project.vue';
 import Education from './components/Education.vue';
 import Like from './components/Like.vue';
 import Link from './components/Link.vue';
-import Header from '@/components/Header.vue';
+import Header from './components/Header.vue';
 import RightBar from '@/components/RightBar.vue';
 </script>
 

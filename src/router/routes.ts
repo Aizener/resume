@@ -13,8 +13,26 @@ const tempRoute = Object.keys(tempComp).map(path => {
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/pages/Home.vue')
+    name: 'Index',
+    component: () => import('@/pages/Index.vue'),
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'Home',
+        component: () => import('@/pages/Home.vue')
+      },
+      {
+        path: '/mall',
+        name: 'Mall',
+        component: () => import('@/pages/Mall.vue')
+      },
+      {
+        path: '/my',
+        name: 'My',
+        component: () => import('@/pages/My.vue')
+      },
+    ]
   },
   {
     path: '/design',
