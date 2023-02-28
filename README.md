@@ -1,18 +1,55 @@
-# Vue 3 + TypeScript + Vite
+## 一个免费的在线简历生成工具
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+该工具是基于Vue3.2+VueRouter4+Pinia搭建的一个简历生成工具，目前已实现了最基本的编辑和效果展现以及PDF的下载功能！
 
-## Recommended IDE Setup
+> 目前该项目暂无后端提供服务，涉及到的一切数据均保存在本地存储中！
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 使用
 
-## Type Support For `.vue` Imports in TS
+其实没有什么需要讲解的，就说一下使用的两个点。
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+### 制作简历
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+进入网站首页，点击「立即开始>>」即可在线编辑简历了，需要注意的是：为了不必要的操作，编辑表单过后，会有3秒钟的延迟来生成预览效果。
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### 下载简历
+生成的效果提供的下载功能，只能保存为PDF文件，且文件内容是无法编辑的（因为其实PDF里面的保存的是canvas转的图片）。
+
+## 模板创建
+
+目前模板较少，如果你有喜欢的模板可以向我留言，我空余时间可以去实现该模板！  
+当然，如果你有兴趣，可以基于该项目新建一个自己的模板，方法如下：
+1. 克隆本项目；
+2. 在`template`目录下新建一个`vue`文件，该文件需要引入`Temp`组件，基于`slot`特性就可以在编写页面的时候获取到表单的数据了！
+3. 你也可以提`PR`将编写的模板合并到该仓库中。
+
+下面是一个实例文件：
+```vue
+// Base.vue 新建的模板文件，名称可随意命名，不重复即可
+<script setup lang="ts">
+</script>
+
+<template>
+  <div class="base">
+    <Temp>
+      <template #info="{ data }">
+      </template>
+      <template #advantage="{ data }">
+      </template>
+      <template #work="{ data }">
+      </template>
+      <template #project="{ data }">
+      </template>
+      <template #education="{ data }">
+      </template>
+      <template #like="{ data }">
+      </template>
+      <template #link="{ data }">
+      </template>
+    </Temp>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+</style>
+```
