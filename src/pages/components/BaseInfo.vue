@@ -11,7 +11,11 @@ const handleChangeWorkDate = () => {
 }
 
 const handleChangeBirthdayDate = () => {
-  const year = (baseInfo.birthday as unknown as Date).getFullYear();
+  const d = baseInfo.birthday as unknown as Date;
+  const year = d.getFullYear();
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  baseInfo.birthday = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   baseInfo.age = (new Date().getFullYear() - year).toString();
 }
 </script>

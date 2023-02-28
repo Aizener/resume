@@ -40,7 +40,7 @@ export const save = () => {
     const page = cvsArr[i].toDataURL('image/jpeg', 1.0);
     doc.setFillColor(255, 255, 255);
     doc.rect(0, 0, a4Width, a4Height + 30, 'F');
-    doc.addImage(page, 'jpeg', 0, 15, a4Width, a4Height);
+    doc.addImage(page, 'jpeg', 0, i === 0 ? 0 : 15, a4Width, a4Height);
     i < cvsArr.length - 1 && doc.addPage();
   }
   doc.save();

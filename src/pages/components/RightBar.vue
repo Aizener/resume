@@ -9,7 +9,7 @@ const handleClose = (done: () => void) => {
 }
 
 
-const tempComp = import.meta.glob('../template/**.vue');
+const tempComp = import.meta.glob('../../template/**.vue');
 let temps = $ref<ITemp[]>();
 
 temps = Object.keys(tempComp).map(path => {

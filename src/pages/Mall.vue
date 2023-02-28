@@ -13,6 +13,7 @@ const type = $ref('全部');
 const goods: ITempType[] = [
   { title: '基础模板', name: 'base', type: '纯色', comp: () => import('@/template/Base.vue'), cover: new URL('../assets/imgs/temp/base.jpeg', import.meta.url).href },
   { title: '绿色简约', name: 'brief', type: '简约', comp: () => import('@/template/Brief.vue'), cover: new URL('../assets/imgs/temp/brief.jpeg', import.meta.url).href },
+  { title: '淡雅质量', name: 'senior', type: '简约', comp: () => import('@/template/Senior.vue'), cover: new URL('../assets/imgs/temp/senior.jpeg', import.meta.url).href },
 ];
 
 const list = computed(() => {
@@ -64,7 +65,7 @@ const handleDesign = async (item: ITempType) => {
         <div class="inner">
           <el-button type="primary" @click="handleDesign(item)">开始制作</el-button>
         </div>
-        <div class="name">{{ item.name }}</div>
+        <div class="name">{{ item.title }}</div>
       </div>
     </TransitionGroup>
   </div>
