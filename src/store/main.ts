@@ -151,10 +151,12 @@ export const useCompStore = defineStore('compStore', {
     const isShowRightBar = $ref(false);
     const currentTemplate = shallowRef<Component>(Base);
     const currentTempType = $ref('base');
+    const orderList = $ref([ref(0), ref(1), ref(2), ref(3), ref(4), ref(5), ref(6)]);
     return {
       isShowRightBar,
       currentTemplate,
-      currentTempType
+      currentTempType,
+      orderList
     }
   }
 });

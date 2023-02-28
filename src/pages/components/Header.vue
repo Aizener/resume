@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { save } from '../../components/preview/render';
+import { save } from './preview/render';
 import { useCompStore, useMainStore, usePersonalStore } from '@/store/main';
 import BackIcon from '~icons/material-symbols/arrow-back-ios-rounded';
 import EditIcon from '~icons/material-symbols/edit-note';
@@ -35,6 +35,7 @@ const handleSave = () => {
       message: '请先设置简历名称后，再进行保存！',
       type: 'warning',
     });
+    return;
   }
   const {
     baseInfo,

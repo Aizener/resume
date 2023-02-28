@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { useMainStore } from '@/store/main';
+import { useMainStore, useCompStore } from '@/store/main';
 const mainStore = useMainStore();
+const compStore = useCompStore();
 
+const [
+  workOrder,
+  projectOrder,
+  educationOrder,
+  likeOrder,
+  linkOrder
+] = compStore.orderList;
 const {
   baseInfo,
   advantage,
@@ -22,19 +30,19 @@ const {
     <div class="row temp-advantage">
       <slot name="advantage" :data="advantage"></slot>
     </div>
-    <div class="row temp-work">
+    <div class="row temp-work" :style="`order: ${workOrder}`">
       <slot name="work" :data="work"></slot>
     </div>
-    <div class="row temp-project">
+    <div class="row temp-project" :style="`order: ${projectOrder}`">
       <slot name="project" :data="project"></slot>
     </div>
-    <div class="row temp-education">
+    <div class="row temp-education" :style="`order: ${educationOrder}`">
       <slot name="education" :data="education"></slot>
     </div>
-    <div class="row temp-like">
+    <div class="row temp-like" :style="`order: ${likeOrder}`">
       <slot name="like" :data="like"></slot>
     </div>
-    <div class="row temp-link">
+    <div class="row temp-link" :style="`order: ${linkOrder}`">
       <slot name="link" :data="link"></slot>
     </div>
   </div>

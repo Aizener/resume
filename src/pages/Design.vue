@@ -7,20 +7,34 @@ import Education from './components/Education.vue';
 import Like from './components/Like.vue';
 import Link from './components/Link.vue';
 import Header from './components/Header.vue';
-import RightBar from '@/components/RightBar.vue';
+import RightBar from './components/RightBar.vue';
+import Preview from './components/preview/Preview.vue';
+import Sequence from './components/Sequence.vue';
+import { useCompStore } from '@/store/main';
+
+const compStore = useCompStore();
+
+const [
+  workOrder,
+  projectOrder,
+  educationOrder,
+  likeOrder,
+  linkOrder
+] = compStore.orderList;
 </script>
 
 <template>
   <div class="design">
     <Header></Header>
+    <Sequence></Sequence>
     <div class="design-left">
       <BaseInfo></BaseInfo>
       <Advantage></Advantage>
-      <Work></Work>
-      <Project></Project>
-      <Education></Education>
-      <Like></Like>
-      <Link></Link>
+      <Work :style="`order: ${workOrder}`"></Work>
+      <Project :style="`order: ${projectOrder}`"></Project>
+      <Education :style="`order: ${educationOrder}`"></Education>
+      <Like :style="`order: ${likeOrder}`"></Like>
+      <Link :style="`order: ${linkOrder}`"></Link>
     </div>
     <div class="design-right">
       <Preview></Preview>
@@ -37,6 +51,8 @@ import RightBar from '@/components/RightBar.vue';
     width: calc(100% - 690px);
     padding: 3rem;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
     &:deep(h3) {
       margin: 1rem 0;
     }

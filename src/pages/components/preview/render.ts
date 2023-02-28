@@ -7,7 +7,7 @@ export const a4Width = $ref(595.28); // a4纸的宽度 单位pt
 export const a4Height = $ref(841.89); //  a4纸的高度 单位pt
 export const render = async () => {
   const temp = document.querySelector("#temp-page") as HTMLElement;
-  const container = (document.querySelector('#pages') as HTMLElement);
+  const container = document.querySelector('#pages') as HTMLElement;
   container.innerHTML = '';
   cvsArr = [];
 
