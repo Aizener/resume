@@ -8,32 +8,31 @@ import IconEmail from '~icons/material-symbols/attach-email';
     <Temp>
       <div class="brief-top"></div>
       <template #info="{ data }">
-        <h2>杨祥</h2>
+        <h2>{{ data.name }}</h2>
         <div class="info-list">
           <div class="item">
-            <span>男&nbsp;|&nbsp;26岁</span>
+            <span>{{ data.sex }}&nbsp;|&nbsp;{{ data.age }}岁</span>
           </div>
           <div class="item">
             <IconPhone class="icon" />
-            <span>13678398293</span>
+            <span>{{ data.phone }}</span>
           </div>
           <div class="item">
             <IconEmail class="icon" />
-            <span>1215627787@qq.com</span>
+            <span>{{ data.phone }}</span>
           </div>
         </div>
-        <p>4年工作经验</p>
+        <p>{{ data.workTime }}年工作经验</p>
       </template>
       <template #advantage="{ data }">
         <div class="title">
           <p class="title-main">个人优势</p>
         </div>
         <ul>
-          <li>1.锁定了福建省考虑到就分手；锁定了福建省考虑到就分手；锁定了福建省考虑到就分手；</li>
-          <li>1.锁定了福建省考虑到就分手；</li>
-          <li>1.锁定了福建省考虑到就分手；</li>
-          <li>1.锁定了福建省考虑到就分手；</li>
-          <li>1.锁定了福建省考虑到就分手；</li>
+          <li
+            v-for="(item, idx) in data.contentArr"
+            :key="idx"
+          >{{ item }}</li>
         </ul>
       </template>
       <template #work="{ data }">
@@ -41,15 +40,24 @@ import IconEmail from '~icons/material-symbols/attach-email';
           <p class="title-main">工作经历</p>
         </div>
         <div class="work">
-          <div class="work-item" v-for="(item, idx) in 3" :key="idx">
+          <div
+            class="work-item"
+            v-for="(item, idx) in data.works"
+            :key="idx"
+          >
             <div class="info">
               <div class="info-left">
-                <p class="name">成都力之奇科技</p>
-                <p class="job">产品经历</p>
+                <p class="name">{{ item.name }}</p>
+                <p class="job">{{ item.job }}</p>
               </div>
-              <span class="date">2020.09-2021.05</span>
+              <span class="date">{{ item.workTime }}</span>
             </div>
-            <div class="content">胜多负少开了多久烦死了肯德基烦死了快点解封手动阀；</div>
+            <div class="content">
+              <p
+                v-for="(_item, idx) in item.contentArr"
+                :key="idx"
+              >{{ _item }}</p>
+            </div>
           </div>
         </div>
       </template>
@@ -58,12 +66,18 @@ import IconEmail from '~icons/material-symbols/attach-email';
           <p class="title-main">项目经历</p>
         </div>
         <div class="project">
-          <div class="project-item" v-for="(item, idx) in 3" :key="idx">
+          <div
+            class="project-item"
+            v-for="(item, idx) in data.projects"
+            :key="idx"
+          >
             <div class="info">
-              <p class="name">成都力之奇科技</p>
-              <span class="date">2020.09-2021.05</span>
+              <p class="name">{{ item.name }}</p>
+              <span class="date">{{ item.projectTime }}</span>
             </div>
-            <div class="content">胜多负少开了多久烦死了肯德基烦死了快点解封手动阀；</div>
+            <div class="content">
+              <p v-for="(_item, _idx) in item.descArr" :key="_idx">{{ _item }}</p>
+            </div>
           </div>
         </div>
       </template>
@@ -72,12 +86,16 @@ import IconEmail from '~icons/material-symbols/attach-email';
           <p class="title-main">教育经历</p>
         </div>
         <div class="education">
-          <div class="item">
+          <div
+            class="item"
+            v-for="(item, idx) in data.educations"
+            :key="idx"
+          >
             <div class="left">
-              <span class="name">四川信息职业技术学院</span>
-              <span class="grade">大专</span>
+              <span class="name">{{ item.name }}</span>
+              <span class="grade">{{ item.grade }}</span>
             </div>
-            <span class="date">2020.09-2021.05</span>
+            <span class="date">{{ item.educationTime }}</span>
           </div>
         </div>
       </template>
@@ -85,13 +103,18 @@ import IconEmail from '~icons/material-symbols/attach-email';
         <div class="title">
           <p class="title-main">兴趣爱好</p>
         </div>
-        <div class="content">兴趣爱好</div>
+        <div class="content" v-html="data.content"></div>
       </template>
       <template #link="{ data }">
         <div class="title">
           <p class="title-main">个人链接</p>
         </div>
-        <div class="content">兴趣爱好</div>
+        <div class="content">
+          <p
+            v-for="(item, idx) in data.contentArr"
+            :key="idx"
+          >{{ item }}</p>
+        </div>
       </template>
     </Temp>
   </div>
