@@ -23,7 +23,7 @@ onMounted(() => {
         <router-link class="link" :class="{ active: route.path === '/home' }" to="/">首页</router-link>
         <router-link class="link" :class="{ active: route.path === '/mall' }" to="/mall">模板广场</router-link>
         <router-link class="link" :class="{ active: route.path === '/my' }" to="/my">我的简历</router-link>
-        <router-link class="link" :class="{ active: route.path === '/create' }" to="/">模板创建</router-link>
+        <a class="link" href="https://github.com/Aizener/resume/tree/master#%E6%A8%A1%E6%9D%BF%E5%88%9B%E5%BB%BA" target="_blank">模板创建</a>
       </div>
     </header>
     <div class="container">

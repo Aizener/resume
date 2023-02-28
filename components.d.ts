@@ -9,23 +9,16 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    CFormItem: typeof import('./src/components/CFormItem.vue')['default']
-    CInput: typeof import('./src/components/CInput.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
-    ElDateRange: typeof import('element-plus/es')['ElDateRange']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
-    Header: typeof import('./src/components/Header.vue')['default']
-    Preview: typeof import('./src/components/preview/Preview.vue')['default']
-    RightBar: typeof import('./src/components/RightBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Temp: typeof import('./src/components/Temp.vue')['default']
-    Template: typeof import('./src/components/Template.vue')['default']
   }
 }

@@ -15,7 +15,7 @@ let temps = $ref<ITemp[]>();
 temps = Object.keys(tempComp).map(path => {
   const strs = path.split('/');
   const name = strs[strs.length - 1].split('.')[0];
-  return { name, cover: `src/assets/imgs/temp/${name.toLocaleLowerCase()}.jpeg`, comp: tempComp[path] }
+  return { name, cover: new URL(`../../assets/imgs/temp/${name.toLocaleLowerCase()}.jpeg`, import.meta.url).href, comp: tempComp[path] }
 });
 
 const handleChooseTemp = async (temp: ITemp) => {
