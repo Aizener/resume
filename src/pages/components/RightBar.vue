@@ -47,9 +47,10 @@ const handleChooseTemp = async (temp: ITemp) => {
           class="temp"
           v-for="(item, idx) in temps"
           :key="idx"
-          :style="{ background: `url(${item.cover})`, backgroundSize: '100% 100%' }"
           @click="handleChooseTemp(item)"
-        ></div>
+        >
+          <el-image class="cover" :src="item.cover" lazy />
+        </div>
       </div>
     </el-drawer>
   </div>
@@ -68,6 +69,13 @@ const handleChooseTemp = async (temp: ITemp) => {
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    .cover {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
     &:hover {
       border-color: #00a6a7;
       &::after {

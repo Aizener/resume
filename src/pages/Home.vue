@@ -14,6 +14,10 @@ const handleBeginDesign = () => {
 
   router.push('/design');
 }
+
+const handleToGithubPage = () => {
+  window.open('https://github.com/Aizener/resume/tree/master');
+}
 </script>
 
 <template>
@@ -24,7 +28,7 @@ const handleBeginDesign = () => {
     </div>
     <div class="btns">
       <el-button type="primary" @click="handleBeginDesign">立即开始&nbsp;>></el-button>
-      <el-button type="info"><GithubIcon class="icon" />Github</el-button>
+      <el-button type="info" @click="handleToGithubPage"><GithubIcon class="icon" />Github</el-button>
     </div>
   </div>
 </template>

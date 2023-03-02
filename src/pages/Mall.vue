@@ -61,7 +61,7 @@ const handleDesign = async (item: ITempType) => {
         v-for="item in list"
         :key="item.type"
       >
-        <img class="cover" :src="item.cover" alt="">
+        <el-image class="cover" :src="item.cover" lazy />
         <div class="inner">
           <el-button type="primary" @click="handleDesign(item)">开始制作</el-button>
         </div>
