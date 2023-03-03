@@ -21,6 +21,10 @@ const handleEdit = (item: any) => {
     }
   });
 }
+
+const handleToMallPage = () => {
+  router.replace('/mall');
+}
 </script>
 
 <template>
@@ -44,7 +48,7 @@ const handleEdit = (item: any) => {
         </div>
       </div>
     </div>
-    <div class="my-list" :class="[showType]">
+    <div class="my-list" :class="[showType]" v-if="Object.keys(personalStore.myTemps).length">
       <div class="item" v-for="(item, idx) in personalStore.myTemps" :key="idx">
         <img class="cover" :src="item.cover" alt="">
         <div class="info">
@@ -55,6 +59,11 @@ const handleEdit = (item: any) => {
           </div>
         </div>
       </div>
+    </div>
+    <div class="my-empty" v-else>
+      <el-empty :image-size="200" description="暂无简历信息哦~">
+        <el-button type="primary" @click="handleToMallPage">去广场>></el-button>
+      </el-empty>
     </div>
   </div>
 </template>
@@ -169,6 +178,9 @@ const handleEdit = (item: any) => {
         }
       }
     }
+  }
+  &-empty {
+    margin-top: 5rem;
   }
 }
 </style>

@@ -74,7 +74,7 @@ import IconEmail from '~icons/material-symbols/attach-email';
             <div class="title-text">项目经历</div>
           </div>
           <div class="list">
-            <div class="item" v-for="(item, idx) in data.projects">
+            <div class="item" v-for="(item, idx) in data.projects" :key="idx">
               <div class="top">
                 <div class="left">
                   <span class="name">{{ item.name }}</span>
