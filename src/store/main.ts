@@ -135,7 +135,8 @@ export const usePersonalStore = defineStore('personalStore', {
         data: IForm,
         cover: string,
         name: string,
-        time: number
+        time: number,
+        currentTempType: string
       }
     }
   } => {

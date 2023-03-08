@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import ListIcon from '~icons/material-symbols/list-alt-rounded';
 import MenuIcon from '~icons/gg/menu-grid-r';
-import { useMainStore, usePersonalStore } from '@/store/main';
+import { ElLoading } from 'element-plus';
+import { useCompStore, useMainStore, usePersonalStore } from '@/store/main';
 
 const showType = $ref('box');
 const personalStore = usePersonalStore();
+const compStore = useCompStore();
 const mainStore = useMainStore();
 const router = useRouter();
 const getDate = (time: number) => {
@@ -12,8 +14,19 @@ const getDate = (time: number) => {
   return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
 }
 
-const handleEdit = (item: any) => {
+
+const tempComp = import.meta.glob('../template/**.vue');
+
+const handleEdit = async (item: any) => {
+  const loadingInstance = ElLoading.service({
+    text: '模板加载中...',
+    fullscreen: true,
+  });
+  const temp = tempComp[`../template/${item.currentTempType}.vue`];
+  const comp: any = await temp();
   mainStore.updateValue(item.data);
+  loadingInstance.close();
+  compStore.currentTemplate = comp.default;
   router.push({
     path: '/design',
     query: {

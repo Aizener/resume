@@ -22,7 +22,7 @@ export const render = async () => {
       scale: 2,
       y: lastY,
       width: a4Width,
-      height: height,
+      height: height
     });
     
     lastY = y;

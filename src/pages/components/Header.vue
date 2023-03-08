@@ -25,8 +25,10 @@ const handleChoose = () => {
 }
 
 const covers: Record<string, string> = {
-  'base': new URL('../../assets/imgs/temp/base.jpeg', import.meta.url).href,
-  'brief': new URL('../../assets/imgs/temp/base.jpeg', import.meta.url).href
+  'Base': new URL('../../assets/imgs/temp/base.jpeg', import.meta.url).href,
+  'Brief': new URL('../../assets/imgs/temp/base.jpeg', import.meta.url).href,
+  'Dark': new URL('../../assets/imgs/temp/dark.jpeg', import.meta.url).href,
+  'Senior': new URL('../../assets/imgs/temp/senior.jpeg', import.meta.url).href
 }
 const handleSave = () => {
   if (name === '') {
@@ -57,6 +59,7 @@ const handleSave = () => {
       link: clone(link)
     },
     name: name,
+    currentTempType: compStore.currentTempType,
     cover: covers[compStore.currentTempType],
     time: Date.now()
   }
