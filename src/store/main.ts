@@ -1,6 +1,13 @@
 import { defineStore } from 'pinia';
 import Base from '@/template/Base.vue';
 import { clone } from '@/utils/hooks';
+import { useBreakpoints } from '@vueuse/core';
+
+const breakpoints = useBreakpoints({
+  tablet: 640,
+  laptop: 1024,
+  desktop: 1280,
+});
 
 export const useMainStore = defineStore('mainStore', {
   state: () => {
@@ -158,6 +165,15 @@ export const useCompStore = defineStore('compStore', {
       currentTemplate,
       currentTempType,
       orderList
+    }
+  }
+});
+
+export const useGlobalStore = defineStore('globalStore', {
+  state: () => {
+    const isMobile = $ref(breakpoints.isSmaller('tablet'));
+    return {
+      isMobile
     }
   }
 });

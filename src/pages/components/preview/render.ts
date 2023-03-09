@@ -46,4 +46,4 @@ export const save = () => {
   doc.save();
 }
 
-export const doRender = useDebounceFn(render, 3e3);
+export const doRender = useDebounceFn(render, 2e3);

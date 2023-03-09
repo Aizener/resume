@@ -10,9 +10,11 @@ import Header from './components/Header.vue';
 import RightBar from './components/RightBar.vue';
 import Preview from './components/preview/Preview.vue';
 import Sequence from './components/Sequence.vue';
-import { useCompStore } from '@/store/main';
+import { useCompStore, useGlobalStore } from '@/store/main';
+import { ElResult } from 'element-plus';
 
 const compStore = useCompStore();
+const globalStore = useGlobalStore();
 
 const [
   workOrder,
@@ -24,23 +26,36 @@ const [
 </script>
 
 <template>
-  <div class="design">
-    <Header></Header>
-    <Sequence></Sequence>
-    <div class="design-left">
-      <BaseInfo></BaseInfo>
-      <Advantage></Advantage>
-      <Work :style="`order: ${workOrder}`"></Work>
-      <Project :style="`order: ${projectOrder}`"></Project>
-      <Education :style="`order: ${educationOrder}`"></Education>
-      <Like :style="`order: ${likeOrder}`"></Like>
-      <Link :style="`order: ${linkOrder}`"></Link>
-    </div>
-    <div class="design-right">
-      <Preview></Preview>
-    </div>
+  <div v-if="globalStore.isMobile" class="tips">
+    <ElResult
+      icon="error"
+      title="失败"
+      sub-title="暂不支持手机端编辑简历"
+    >
+      <template #extra>
+        <el-button type="primary" @click="$router.replace('/')">返回首页</el-button>
+      </template>
+    </ElResult>
   </div>
-  <RightBar></RightBar>
+  <div v-else>
+    <div class="design">
+      <Header></Header>
+      <Sequence></Sequence>
+      <div class="design-left">
+        <BaseInfo></BaseInfo>
+        <Advantage></Advantage>
+        <Work :style="`order: ${workOrder}`"></Work>
+        <Project :style="`order: ${projectOrder}`"></Project>
+        <Education :style="`order: ${educationOrder}`"></Education>
+        <Like :style="`order: ${likeOrder}`"></Like>
+        <Link :style="`order: ${linkOrder}`"></Link>
+      </div>
+      <div class="design-right">
+        <Preview></Preview>
+      </div>
+    </div>
+    <RightBar></RightBar>
+  </div>
 </template>
 
 <style lang="scss" scoped>
